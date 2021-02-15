@@ -6,7 +6,6 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
-from pybricks.iodevices import Ev3devSensor
 
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
@@ -15,9 +14,19 @@ from pybricks.iodevices import Ev3devSensor
 
 # Create your objects here.
 ev3 = EV3Brick()
-ir_sensor = Ev3devSensor(Port.S4)
-
+ultra = UltrasonicSensor()
+left_motor = Motor(Port.C)
+right_motor = Motor(Port.B)
+robot = DriveBase(left_motor,right_motor,55,142)
 
 # Write your program here.
+
+
+
+# ---- MAIN PROGRAM ----
 while True:
-    ev3.screen.print(ir_sensor.read('DC'))
+    dist = ultra.distance()
+    ev3.screen.clear()
+    ev3.screen.draw_text(100,100,str(dist))
+
+
